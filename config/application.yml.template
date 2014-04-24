@@ -1,6 +1,6 @@
 development:
   RAILS_SECRET_TOKEN: ''
-staging:
+stage:
   RAILS_SECRET_TOKEN: ''
   NEW_RELIC_APP_NAME: ''
 production:
