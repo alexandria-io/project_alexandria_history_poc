@@ -55,3 +55,6 @@ group :test do
   gem 'guard-rspec' 
   gem 'launchy' 
 end
+
+# ENV vars
+gem 'figaro', '~> 0.7.0'

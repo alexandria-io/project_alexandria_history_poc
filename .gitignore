@@ -13,6 +13,12 @@ pickle-email-*.html
 config/initializers/secret_token.rb
 config/secrets.yml
 /config/database.yml
+/config/application.yml
+*.swp
+*.swo
+*.swn
+*.swm
+*.DS_STORE
 
 ## Environment normalisation:
 /.bundle

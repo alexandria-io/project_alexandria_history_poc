@@ -1,0 +1,6 @@
+development:
+  RAILS_SECRET_TOKEN: ''
+staging:
+  RAILS_SECRET_TOKEN: ''
+production:
+  RAILS_SECRET_TOKEN: ''
