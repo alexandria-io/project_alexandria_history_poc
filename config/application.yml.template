@@ -2,5 +2,7 @@ development:
   RAILS_SECRET_TOKEN: ''
 staging:
   RAILS_SECRET_TOKEN: ''
+  NEW_RELIC_APP_NAME: ''
 production:
   RAILS_SECRET_TOKEN: ''
+  NEW_RELIC_APP_NAME: ''

@@ -58,3 +58,5 @@ end
 
 # ENV vars
 gem 'figaro', '~> 0.7.0'
+
+gem 'newrelic_rpm'
