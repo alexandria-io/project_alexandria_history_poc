@@ -5,7 +5,13 @@ gem 'rails', '3.2.17'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+group :development, :test do
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'pg'
+end
 
 gem 'haml-rails'
 
@@ -30,7 +36,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -49,3 +55,8 @@ group :test do
   gem 'guard-rspec' 
   gem 'launchy' 
 end
+
+# ENV vars
+gem 'figaro', '~> 0.7.0'
+
+gem 'newrelic_rpm'
