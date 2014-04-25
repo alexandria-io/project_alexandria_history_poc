@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140425165046) do
+ActiveRecord::Schema.define(:version => 20140425213651) do
 
   create_table "archives", :force => true do |t|
     t.string   "title"
@@ -21,10 +21,16 @@ ActiveRecord::Schema.define(:version => 20140425165046) do
 
   create_table "records", :force => true do |t|
     t.integer  "archive_id"
-    t.text     "record_text"
     t.string   "record_type"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "tweets", :force => true do |t|
+    t.integer  "record_id"
+    t.text     "tweet_text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

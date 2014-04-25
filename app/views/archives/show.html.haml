@@ -4,10 +4,10 @@
   %b Title:
   = @archive.title
 
-%ul#records
+%ul
   - @records.each do |record|
-    %li
-      %p= record.record_text
+    %li= record.tweet['tweet_text']
+
 
 = link_to 'Edit', edit_archive_path(@archive)
 \|

@@ -1,8 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :record do
-    archive_id 1
-    record_type ""
+  factory :tweet do
+    record_id 1
+    tweet_text "MyText"
   end
 end
