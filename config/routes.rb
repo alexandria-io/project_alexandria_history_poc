@@ -1,6 +1,9 @@
 ProjectAlexandria::Application.routes.draw do
   root to: 'welcome#index'
   get 'welcome/brainwallet'
+  get 'auth/twitter'
+  get 'auth/twitter/callback', to: 'sessions#create'
+  get 'auth/twitter', to: 'sessions#failure'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

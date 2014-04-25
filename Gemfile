@@ -59,4 +59,8 @@ end
 # ENV vars
 gem 'figaro', '~> 0.7.0'
 
+# Performance Monitoring
 gem 'newrelic_rpm'
+
+# Twitter OmniAuth
+gem 'omniauth-twitter'
