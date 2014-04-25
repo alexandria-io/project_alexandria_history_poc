@@ -2,18 +2,29 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    @records = Record.all
+    archive = Archive.find params[:archive_id]
+
+    @records = []
+    archive.records.each do |record|
+      @records << record.tweet
+    end
+    exceptions = [
+      :id,
+      :record_id,
+      :updated_at
+    ]
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @records }
+      format.json { render json: @records, except: exceptions }
     end
   end
 
   # GET /records/1
   # GET /records/1.json
   def show
-    @record = Record.find(params[:id])
+    archive = Archive.find params[:archive_id]
+    @record = archive.records.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

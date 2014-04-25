@@ -3,6 +3,11 @@ class ArchivesController < ApplicationController
   # GET /archives.json
   def index
     @archives = Archive.all
+    #client = return_twitter_client
+    #tweets = client.user_timeline(@archives.first.title, options = {count: 1, include_rts: true})
+    #tweets.each do |tweet|
+    #  puts tweet.instance_variables
+    #end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -45,15 +50,16 @@ class ArchivesController < ApplicationController
 
     respond_to do |format|
       if @archive.save
-        # TODO Abstact all this into a Gem/Module/Class
         client = return_twitter_client
         tweets = client.user_timeline(@archive.title, options = {count: 200, include_rts: true})
         tweets.each do |tweet|
           record = @archive.records.create({
             record_type: 'tweet',
-            record_text: tweet['text']
           })
           record.save
+          tweet = record.create_tweet({
+            tweet_text: tweet['text']
+          })
         end
 
         format.html { redirect_to @archive, notice: 'Archive was successfully created.' }

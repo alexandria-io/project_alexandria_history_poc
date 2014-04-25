@@ -1,15 +1,7 @@
-%p#notice= notice
-
 %p
   %b Archive:
   = @record.archive_id
-%p
-  %b Record Text:
-  = @record.record_text
+
 %p
   %b Record Type:
   = @record.record_type
-
-= link_to 'Edit', edit_record_path(@record)
-\|
-= link_to 'Back', records_path
