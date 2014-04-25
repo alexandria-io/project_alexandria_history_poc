@@ -67,3 +67,5 @@ gem 'omniauth-twitter'
 
 # HTTP Webservice Gem
 gem 'httparty', '~> 0.13.0'
+
+gem 'twitter'

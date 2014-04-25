@@ -45,34 +45,17 @@ class ArchivesController < ApplicationController
 
     respond_to do |format|
       if @archive.save
-
         # TODO Abstact all this into a Gem/Module/Class
-        require 'open-uri'
-        require 'base64'
-        bearer_token = HTTParty.post("#{Figaro.env.twitter_api_url_root}oauth2/token/",
-          headers: { 
-            'Authorization' => "Basic #{Base64.strict_encode64("#{URI::encode(Figaro.env.twitter_api_key)}:#{URI::encode(Figaro.env.twitter_api_secret)}")}",
-            'Content-Type' => 'application/x-www-form-urlencoded;charset=UTF-8',
-          },
-          body: { 'grant_type' => 'client_credentials' }
-        )
-
-        if bearer_token['token_type'] == 'bearer'
-          tweets = HTTParty.get("#{Figaro.env.twitter_api_url_root}1.1/statuses/user_timeline.json?count=100&screen_name=#{@archive.title}",
-            headers: { 
-              'Authorization' => "Bearer #{bearer_token['access_token']}"
-            }
-          )
-
-          tweets.each do |tweet|
-            record = @archive.records.create({
-              record_type: 'tweet',
-              record_text: tweet['text']
-            })
-            record.save
-          end
-
+        client = return_twitter_client
+        tweets = client.user_timeline(@archive.title, options = {count: 200, include_rts: true})
+        tweets.each do |tweet|
+          record = @archive.records.create({
+            record_type: 'tweet',
+            record_text: tweet['text']
+          })
+          record.save
         end
+
         format.html { redirect_to @archive, notice: 'Archive was successfully created.' }
         format.json { render json: @archive, status: :created, location: @archive }
       else
