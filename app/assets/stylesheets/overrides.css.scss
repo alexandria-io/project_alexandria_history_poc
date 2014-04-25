@@ -3,3 +3,9 @@
     color: white;
   }
 }
+
+#records {
+  > li:nth-child(even) {
+    background: #ddd;
+  }
+}
