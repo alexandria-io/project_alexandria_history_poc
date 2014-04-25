@@ -22,6 +22,15 @@ class SessionsController < ApplicationController
       },
       body: { 'grant_type' => 'client_credentials' }
     )
+
     puts bearer_token
+
+    if bearer_token['token_type'] == 'bearer'
+      @response = HTTParty.get('https://api.twitter.com/1.1/statuses/user_timeline.json?count=100&screen_name=blocktechceo',
+        headers: { 
+          'Authorization' => "Bearer #{bearer_token['access_token']}"
+        }
+      )
+    end
   end
 end
