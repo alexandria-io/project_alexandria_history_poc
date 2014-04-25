@@ -1,8 +1,12 @@
 development:
   RAILS_SECRET_TOKEN: ''
-staging:
+  TWITTER_API_KEY: ''
+  TWITTER_API_SECRET: ''
+stage:
   RAILS_SECRET_TOKEN: ''
   NEW_RELIC_APP_NAME: ''
+  TWITTER_API_KEY: ''
+  TWITTER_API_SECRET: ''
 production:
   RAILS_SECRET_TOKEN: ''
   NEW_RELIC_APP_NAME: ''

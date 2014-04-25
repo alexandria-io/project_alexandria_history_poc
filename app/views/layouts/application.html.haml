@@ -6,4 +6,8 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
+      .container
+        .navbar-header
+          = link_to 'Project Alexandria', root_url, class: 'navbar-brand'
     = yield
