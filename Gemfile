@@ -64,3 +64,6 @@ gem 'newrelic_rpm'
 
 # Twitter OmniAuth
 gem 'omniauth-twitter'
+
+# HTTP Webservice Gem
+gem 'httparty', '~> 0.13.0'
