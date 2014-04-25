@@ -15,10 +15,9 @@ class SessionsController < ApplicationController
     require 'open-uri'
     require 'base64'
 
-    base64_encdoded = Base64.encode64("#{URI::encode(Figaro.env.twitter_api_key)}:#{URI::encode(Figaro.env.twitter_api_secret)}")
     bearer_token = HTTParty.post('https://api.twitter.com/oauth2/token/',
       headers: { 
-        'Authorization' => "Basic #{base64_encdoded}",
+        'Authorization' => "Basic #{Base64.strict_encode64("#{URI::encode(Figaro.env.twitter_api_key)}:#{URI::encode(Figaro.env.twitter_api_secret)}")}",
         'Content-Type' => 'application/x-www-form-urlencoded;charset=UTF-8',
       },
       body: { 'grant_type' => 'client_credentials' }
