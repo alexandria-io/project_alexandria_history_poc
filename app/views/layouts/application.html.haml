@@ -9,5 +9,5 @@
     .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
       .container
         .navbar-header
-          %a.navbar-brand{href: "#"} Project Alexandria
+          = link_to 'Project Alexandria', root_url, class: 'navbar-brand'
     = yield
