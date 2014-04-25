@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Twitter auth token:
+  = @user.twitter_auth_token
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path
