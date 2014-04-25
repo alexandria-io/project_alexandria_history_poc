@@ -11,12 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140425005438) do
+ActiveRecord::Schema.define(:version => 20140425165046) do
 
-  create_table "users", :force => true do |t|
-    t.string   "twitter_auth_token"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+  create_table "archives", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "records", :force => true do |t|
+    t.integer  "archive_id"
+    t.text     "record_text"
+    t.string   "record_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
 end
