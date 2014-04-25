@@ -1,3 +1,4 @@
+TWITTER_API_URL_ROOT: ''
 development:
   RAILS_SECRET_TOKEN: ''
   TWITTER_API_KEY: ''
@@ -10,3 +11,5 @@ stage:
 production:
   RAILS_SECRET_TOKEN: ''
   NEW_RELIC_APP_NAME: ''
+  TWITTER_API_KEY: ''
+  TWITTER_API_SECRET: ''
