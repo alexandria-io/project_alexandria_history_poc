@@ -4,9 +4,10 @@ ProjectAlexandria::Application.routes.draw do
   get 'auth/twitter'
   get 'auth/twitter/callback', to: 'sessions#create'
   get 'auth/twitter', to: 'sessions#failure'
-  get 'sessions/application_only'
+  resources :archives do
+    resources :records
+  end
 
-  resources :users
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
