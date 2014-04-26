@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(:version => 20140425213651) do
   create_table "tweets", :force => true do |t|
     t.integer  "record_id"
     t.text     "tweet_text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_date"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end

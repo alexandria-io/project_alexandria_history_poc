@@ -4,9 +4,9 @@ class ArchivesController < ApplicationController
   def index
     @archives = Archive.all
     #client = return_twitter_client
-    #tweets = client.user_timeline(@archives.first.title, options = {count: 1, include_rts: true})
+    #tweets = client.user_timeline(@archives.first.title, options = {count: 200, include_rts: true})
     #tweets.each do |tweet|
-    #  puts tweet.instance_variables
+    #  puts tweet['created_at']
     #end
 
     respond_to do |format|
@@ -58,7 +58,8 @@ class ArchivesController < ApplicationController
           })
           record.save
           tweet = record.create_tweet({
-            tweet_text: tweet['text']
+            tweet_text: tweet['text'],
+            created_date: tweet['created_at']
           })
         end
 

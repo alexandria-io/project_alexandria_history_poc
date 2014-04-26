@@ -1,14 +1,18 @@
-%p#notice= notice
+.container
+  .row
+    .col-lg-12
+      %h2
+        Archive Title:
+        %strong= @archive.title
+      
+      %ul#records
+        - @records.each do |record|
+          %li
+            %ul
+              %li= record.tweet['tweet_text']
+              %li= record.tweet['created_date']
 
-%p
-  %b Title:
-  = @archive.title
-
-%ul
-  - @records.each do |record|
-    %li= record.tweet['tweet_text']
-
-
-= link_to 'Edit', edit_archive_path(@archive)
-\|
-= link_to 'All archives', archives_path
+      
+      = link_to 'Edit', edit_archive_path(@archive)
+      \|
+      = link_to 'All archives', archives_path
