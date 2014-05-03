@@ -19,7 +19,8 @@ class ArchivesController < ApplicationController
   # GET /archives/1.json
   def show
     @archive = Archive.find params[:id]
-    @records = @archive.records
+    @archive_items = @archive.archive_items
+    #@records = @archive.records
 
     respond_to do |format|
       format.html # show.html.erb
@@ -31,6 +32,7 @@ class ArchivesController < ApplicationController
   # GET /archives/new.json
   def new
     @archive = Archive.new
+    @archive_item = @archive.archive_items.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -52,20 +54,30 @@ class ArchivesController < ApplicationController
       if @archive.save
         client = return_twitter_client
 
-        client.search('marry me', result_type: 'recent').take(200).collect do |tweet|
-          puts "#{tweet.user.screen_name}: #{tweet.text}"
-        end
-
-        tweets = client.user_timeline(@archive.title, options = {count: 200, include_rts: true})
-        tweets.each do |tweet|
-          record = @archive.records.create({
-            record_type: 'tweet',
-          })
-          record.save
-          tweet = record.create_tweet({
-            tweet_text: tweet['text'],
-            created_date: tweet['created_at']
-          })
+        last_archive_item = @archive.archive_items.last
+        if last_archive_item.item_type == 'username'
+          tweets = client.user_timeline(last_archive_item.item_term, options = {count: 200, include_rts: true})
+          tweets.each do |tweet|
+            record = last_archive_item.records.create({
+              record_type: 'tweet',
+            })
+            record.save
+            tweet = record.create_tweet({
+              tweet_text: tweet['text'],
+              created_date: tweet['created_at']
+            })
+          end
+        elsif last_archive_item.item_type == 'search'
+          client.search(last_archive_item.item_term, result_type: 'recent').take(200).collect do |tweet|
+           record = last_archive_item.records.create({
+             record_type: 'tweet',
+           })
+           record.save
+           tweet = record.create_tweet({
+             tweet_text: "#{tweet.user.screen_name}: #{tweet.text}",
+             created_date: tweet['created_at']
+           })
+         end
         end
 
         format.html { redirect_to @archive, notice: 'Archive was successfully created.' }

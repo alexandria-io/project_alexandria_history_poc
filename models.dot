@@ -1,0 +1,8 @@
+digraph models_diagram {
+	graph[overlap=false, splines=true]
+	"Archive" [shape=Mrecord, label="{Archive|id :integer\ltitle :string\lcreated_at :datetime\lupdated_at :datetime\l}"]
+	"Record" [shape=Mrecord, label="{Record|id :integer\larchive_id :integer\lrecord_type :string\lcreated_at :datetime\lupdated_at :datetime\l}"]
+	"Tweet" [shape=Mrecord, label="{Tweet|id :integer\lrecord_id :integer\ltweet_text :text\lcreated_date :datetime\lcreated_at :datetime\lupdated_at :datetime\l}"]
+	"Archive" -> "Record" [arrowtail=odot, arrowhead=crow, dir=both color="#ABAA1A"]
+	"Record" -> "Tweet" [arrowtail=odot, arrowhead=dot, dir=both color="#B4735E"]
+}
