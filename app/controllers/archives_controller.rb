@@ -51,6 +51,11 @@ class ArchivesController < ApplicationController
     respond_to do |format|
       if @archive.save
         client = return_twitter_client
+
+        client.search('marry me', result_type: 'recent').take(3).collect do |tweet|
+          puts "#{tweet.user.screen_name}: #{tweet.text}"
+        end
+
         tweets = client.user_timeline(@archive.title, options = {count: 200, include_rts: true})
         tweets.each do |tweet|
           record = @archive.records.create({
