@@ -55,8 +55,10 @@ class ArchivesController < ApplicationController
         client = return_twitter_client
 
         last_archive_item = @archive.archive_items.last
+        term = last_archive_item.item_term
+
         if last_archive_item.item_type == 'username'
-          tweets = client.user_timeline(last_archive_item.item_term, options = {count: 200, include_rts: true})
+          tweets = client.user_timeline(term, options = {count: 200, include_rts: 1})
           tweets.each do |tweet|
             record = last_archive_item.records.create({
               record_type: 'tweet',
@@ -67,17 +69,53 @@ class ArchivesController < ApplicationController
               created_date: tweet['created_at']
             })
           end
+          
+          last_id = tweets.last.id
+          15.times do |index| 
+            tweetz = client.user_timeline(term, options = {count: 200, include_rts: 1, max_id: last_id})
+            tweetz.each do |tweet|
+              record = last_archive_item.records.create({
+                record_type: 'tweet',
+              })
+              record.save
+              tweet = record.create_tweet({
+                tweet_text: tweet['text'],
+                created_date: tweet['created_at']
+              })
+            end
+            last_id = tweets.last.id
+          end
         elsif last_archive_item.item_type == 'search'
-          client.search(last_archive_item.item_term, result_type: 'recent').take(200).collect do |tweet|
-           record = last_archive_item.records.create({
-             record_type: 'tweet',
-           })
-           record.save
-           tweet = record.create_tweet({
-             tweet_text: "#{tweet.user.screen_name}: #{tweet.text}",
-             created_date: tweet['created_at']
-           })
-         end
+          tweets = client.search(term, result_type: 'recent').take(200).collect
+          #last_id = 0
+          tweets.each do |tweet|
+            record = last_archive_item.records.create({
+              record_type: 'tweet',
+            })
+            record.save
+            tweet = record.create_tweet({
+              tweet_text: "#{tweet.user.screen_name}: #{tweet.text}",
+              created_date: tweet['created_at']
+            })
+            #last_id = tweet.id
+          end
+          
+          #15.times do |index| 
+          #  tweets = client.search(term, result_type: 'recent', max_id: last_id).take(200).collect
+          #  tweets.each do |tweet|
+          #    puts tweet.id
+          #    record = last_archive_item.records.create({
+          #      record_type: 'tweet',
+          #    })
+          #    record.save
+          #    tweet = record.create_tweet({
+          #      tweet_text: tweet['text'],
+          #      created_date: tweet['created_at']
+          #    })
+
+          #  last_id = tweet.id
+          #  end
+          #end
         end
 
         format.html { redirect_to @archive, notice: 'Archive was successfully created.' }
