@@ -71,7 +71,7 @@ class ArchivesController < ApplicationController
           end
           
           last_id = tweets.last.id
-          15.times do |index| 
+          5.times do |index| 
             tweetz = client.user_timeline(term, options = {count: 200, include_rts: 1, max_id: last_id})
             tweetz.each do |tweet|
               record = last_archive_item.records.create({
