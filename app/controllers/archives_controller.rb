@@ -20,6 +20,26 @@ class ArchivesController < ApplicationController
   def show
     @archive = Archive.find params[:id]
     @archive_items = @archive.archive_items
+    @tmp_words = []
+    @word_count_array = []
+    @archive_items.each do |archive_item|
+      @twz = archive_item.records.first(5)
+      archive_item.records.each do |record|
+        record.tweet.tweet_text.split(' ').each do |word|
+          if @tmp_words.include? word
+            @word_count_array.each do |word_count|
+              if word_count[0] == word
+                word_count[1] += 1
+              end
+            end
+          else
+            @tmp_words << word
+            @word_count_array << [word, 1]
+          end
+        end
+      end
+    end
+
     #@records = @archive.records
 
     respond_to do |format|

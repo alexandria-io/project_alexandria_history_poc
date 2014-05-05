@@ -5,7 +5,7 @@
         Archive Title:
         %strong= @archive.title
   .row
-    .col-lg-12
+    .col-lg-12#canvas_data{:'data-word-count' => @word_count_array}
       %canvas#my_canvas
   .row
     %ul#records
