@@ -4,14 +4,16 @@
       %h2
         Archive Title:
         %strong= @archive.title
-      
-      %ul#records
-        %li
-          - @archive_items.each do |archive_item|
+  .row
+    .col-lg-12
+      %canvas#my_canvas
+  .row
+    %ul#records
+      %li
+        - @archive_items.each do |archive_item|
+          %ul
+            %li= "Term : #{archive_item.item_term}"
+            %li= "Type: #{archive_item.item_type}"
             %ul
-              %li= "Term : #{archive_item.item_term}"
-              %li= "Type: #{archive_item.item_type}"
-              %ul
-                - archive_item.records.each do |record|
-                  %li= record.tweet.tweet_text
-
+              - archive_item.records.each do |record|
+                %li= record.tweet.tweet_text

@@ -43,6 +43,7 @@ class ArchivesController < ApplicationController
   # GET /archives/1/edit
   def edit
     @archive = Archive.find(params[:id])
+    @archive_items = @archive.archive_items
   end
 
   # POST /archives

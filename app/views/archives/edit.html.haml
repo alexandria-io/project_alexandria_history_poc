@@ -5,3 +5,13 @@
   .row
     .col-md-12
       = render 'form', type: 'edit'
+  .row
+    .col-md-12
+      - @archive_items.each do |archive_item|
+        .archive_item
+          .row
+            .col-md-3
+              = archive_item.item_term
+            .col-md-9
+              %p
+                = link_to 'Destroy', archive_archive_item_path(@archive, archive_item), method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'
