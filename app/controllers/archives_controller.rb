@@ -70,21 +70,21 @@ class ArchivesController < ApplicationController
             })
           end
           
-          last_id = tweets.last.id
-          5.times do |index| 
-            tweetz = client.user_timeline(term, options = {count: 200, include_rts: 1, max_id: last_id})
-            tweetz.each do |tweet|
-              record = last_archive_item.records.create({
-                record_type: 'tweet',
-              })
-              record.save
-              tweet = record.create_tweet({
-                tweet_text: tweet['text'],
-                created_date: tweet['created_at']
-              })
-            end
-            last_id = tweets.last.id
-          end
+          #last_id = tweets.last.id
+          #5.times do |index| 
+          #  tweetz = client.user_timeline(term, options = {count: 200, include_rts: 1, max_id: last_id})
+          #  tweetz.each do |tweet|
+          #    record = last_archive_item.records.create({
+          #      record_type: 'tweet',
+          #    })
+          #    record.save
+          #    tweet = record.create_tweet({
+          #      tweet_text: tweet['text'],
+          #      created_date: tweet['created_at']
+          #    })
+          #  end
+          #  last_id = tweets.last.id
+          #end
         elsif last_archive_item.item_type == 'search'
           tweets = client.search(term, result_type: 'recent').take(200).collect
           #last_id = 0
