@@ -1,14 +1,19 @@
-= form_for @archive do |f|
-
-  .field
-    = f.label :title
-    = f.text_field :title
-
-    = f.fields_for :archive_items do |ff| 
-      %p= ff.label :item_term
-      %p= ff.text_field :item_term
-      %p= ff.label :item_type
-      %p= ff.text_field :item_type
-
-  .actions
-    = f.submit 'Save'
+.row
+  .col-sm-12
+    %section.panel.panel-default
+      %header.panel-heading.font-bold New Archive
+      .panel-body
+        = form_for @archive do |f|
+        
+          .form-group
+            %label Title
+            = f.text_field :title, class: 'form-control', placeholder: "Enter Title" 
+        
+          = f.fields_for :archive_items do |ff| 
+            .form-group
+              %p= ff.label :item_term
+              %p= ff.text_field :item_term, class: 'form-control', placeholder: "Enter username or search term"
+            .form-group
+              %p= ff.label :item_type
+              %p= ff.text_field :item_type, class: 'form-control', placeholder: "Enter 'username' or 'search' term"
+          %button.btn.btn-sm.btn-success{type: "submit"} Submit
