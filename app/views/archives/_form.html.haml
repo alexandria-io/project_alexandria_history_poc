@@ -1,7 +1,10 @@
 .row
   .col-sm-12
     %section.panel.panel-default
-      %header.panel-heading.font-bold New Archive
+      - if type == 'new'
+        %header.panel-heading.font-bold New Archive
+      - elsif type == 'edit'
+        %header.panel-heading.font-bold Edit Archive
       .panel-body
         = form_for @archive do |f|
         

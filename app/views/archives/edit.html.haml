@@ -1,7 +1,7 @@
-%h1 Editing archive
-
-= render 'form'
-
-= link_to 'Show', @archive
-\|
-= link_to 'Back', archives_path
+.container#new_archive
+  .row
+    .col-md-6
+      %p= link_to 'All Archives »', archives_path, class: 'btn btn-primary btn-lg'
+  .row
+    .col-md-12
+      = render 'form', type: 'edit'
