@@ -1,10 +1,11 @@
 ProjectAlexandria::Application.routes.draw do
 
-  root to: 'welcome#index'
-  get 'welcome/brainwallet'
+  root to: 'archives#index'
+
   get 'auth/twitter'
   get 'auth/twitter/callback', to: 'sessions#create'
   get 'auth/twitter', to: 'sessions#failure'
+
   resources :archives do
     resources :archive_items do
       resources :records do
@@ -12,4 +13,7 @@ ProjectAlexandria::Application.routes.draw do
       end
     end
   end
+
+  get 'welcome/brainwallet'
+  get 'welcome/demos'
 end

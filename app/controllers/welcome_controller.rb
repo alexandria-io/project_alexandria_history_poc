@@ -4,4 +4,7 @@ class WelcomeController < ApplicationController
 
   def brainwallet
   end
+
+  def demos
+  end
 end
