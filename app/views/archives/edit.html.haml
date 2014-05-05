@@ -1,7 +1,17 @@
-%h1 Editing archive
-
-= render 'form'
-
-= link_to 'Show', @archive
-\|
-= link_to 'Back', archives_path
+.container#new_archive
+  .row
+    .col-md-6
+      %p= link_to 'All Archives »', archives_path, class: 'btn btn-primary btn-lg'
+  .row
+    .col-md-12
+      = render 'form', type: 'edit'
+  .row
+    .col-md-12
+      - @archive_items.each do |archive_item|
+        .archive_item
+          .row
+            .col-md-3
+              = archive_item.item_term
+            .col-md-9
+              %p
+                = link_to 'Destroy', archive_archive_item_path(@archive, archive_item), method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'

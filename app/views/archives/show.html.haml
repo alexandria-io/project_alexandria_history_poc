@@ -4,15 +4,16 @@
       %h2
         Archive Title:
         %strong= @archive.title
-      
-      %ul#records
-        - @records.each do |record|
-          %li
+  .row
+    .col-lg-12#canvas_data{:'data-word-count' => @word_count_array}
+      %canvas#my_canvas
+  .row
+    %ul#records
+      %li
+        - @archive_items.each do |archive_item|
+          %ul
+            %li= "Term : #{archive_item.item_term}"
+            %li= "Type: #{archive_item.item_type}"
             %ul
-              %li= record.tweet['tweet_text']
-              %li= record.tweet['created_date']
-
-      
-      = link_to 'Edit', edit_archive_path(@archive)
-      \|
-      = link_to 'All archives', archives_path
+              - archive_item.records.each do |record|
+                %li= record.tweet.tweet_text

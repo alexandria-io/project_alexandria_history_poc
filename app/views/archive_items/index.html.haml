@@ -1,0 +1,23 @@
+%h1 Listing archive_items
+
+%table
+  %tr
+    %th Archive
+    %th Item term
+    %th Item type
+    %th
+    %th
+    %th
+
+  - @archive_items.each do |archive_item|
+    %tr
+      %td= archive_item.archive_id
+      %td= archive_item.item_term
+      %td= archive_item.item_type
+      %td= link_to 'Show', archive_item
+      %td= link_to 'Edit', edit_archive_item_path(archive_item)
+      %td= link_to 'Destroy', archive_item, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Archive item', new_archive_item_path
