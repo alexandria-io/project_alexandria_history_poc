@@ -1,6 +1,5 @@
 ProjectAlexandria::Application.routes.draw do
-
-  root to: 'archives#index'
+  root to: 'welcome#index'
 
   get 'auth/twitter'
   get 'auth/twitter/callback', to: 'sessions#create'
