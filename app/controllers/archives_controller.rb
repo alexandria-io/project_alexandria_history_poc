@@ -32,9 +32,11 @@ class ArchivesController < ApplicationController
                 word_count[1] += 1
               end
             end
-          else
-            @tmp_words << word
-            @word_count_array << [word, 1]
+          else 
+            if !['the', 'The', 'a', 'A', 'i', 'I', 'to', 'To','for', 'For', 'that', 'That', 'of', 'Of'].include? word
+              @tmp_words << word
+              @word_count_array << [word, 1]
+            end
           end
         end
       end
