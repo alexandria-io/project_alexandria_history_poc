@@ -1,3 +1,8 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$(document).ready ->
+  WordCloud ("my_canvas"),
+    list: $('#canvas_data').data('word-count'),
+    gridSize: Math.round(16 * $("#canvas").width() / 1024)
+
+    fontFamily: "Times, serif"
+
+    rotateRatio: 0.5

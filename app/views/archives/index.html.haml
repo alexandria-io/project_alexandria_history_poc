@@ -1,19 +1,18 @@
-%h1 Listing archives
-
-%table
-  %tr
-    %th Title
-    %th
-    %th
-    %th
-
-  - @archives.each do |archive|
-    %tr
-      %td= archive.title
-      %td= link_to 'Show', archive
-      %td= link_to 'Edit', edit_archive_path(archive)
-      %td= link_to 'Destroy', archive, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Archive', new_archive_path
+.container#archives
+  .row
+    .col-md-6
+      %h1 All Archives
+    .col-md-6
+      %p= link_to 'Create a new archive »', new_archive_path, class: 'btn btn-primary btn-lg'
+  %hr
+  .row
+    .col-md-12
+      - @archives.each do |archive|
+        .row
+          .col-md-3
+            = archive.title
+          .col-md-9
+            %p
+              = link_to 'Show', archive, class: 'btn btn-primary btn-sm'
+              = link_to 'Edit', edit_archive_path(archive), class: 'btn btn-warning btn-sm'
+              = link_to 'Destroy', archive, method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-danger btn-sm'
