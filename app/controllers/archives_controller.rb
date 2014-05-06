@@ -87,6 +87,13 @@ class ArchivesController < ApplicationController
               record_type: 'tweet',
             })
             record.save
+
+            response = HTTParty.post("#{Figaro.env.florincoin_blockchain_ip}tip?token=foobar8&team_id=foobar&team_domain=foobar&service_id=foobar&channel_id=foobar&channel_name=sw_bots&timestamp=foobar.000198&user_id=foobar&user_name=carlos&text=tip&tweet_text=#{Rack::Utils.escape(tweet['text'])}&trigger_word=litecointipper", 
+            headers: {
+                'Content-Type' => 'application/json'
+              }
+            )
+
             tweet = record.create_tweet({
               tweet_text: tweet['text'],
               created_date: tweet['created_at']
