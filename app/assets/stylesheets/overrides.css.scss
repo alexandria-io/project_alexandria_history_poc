@@ -1,11 +1,57 @@
-#demos {
-  a:visited {
-    color: white;
-  }
-}
+body#body {
+  background: #5ec1f0;
+  font-family: helvetica;
+  font-weight: 200;
 
-#records {
-  > li:nth-child(even) {
-    background: #ddd;
+  .jumbotron {
+    background: inherit;
+    color: #fff;
+  }
+
+  .navbar {
+    background: inherit;
+    border: none;
+    color: #fff;
+
+    .navbar-header {
+      width: 100%;
+      margin-top: 15px;
+
+      > .row {
+        font-weight: bold;
+        margin-bottom: 10px;
+
+        .thin {
+          font-weight: 200;
+        }
+        .col-md-6:first-child {
+          text-align: left;
+        }
+
+        .col-md-6:nth-child(2){
+          text-align: right;
+        }
+      }
+
+      > .row:first-child {
+        font-size: 2em;
+      }
+
+      > .row:nth-child(2), > .row:nth-child(3){
+        font-size: 1.5em;
+      }
+    }
+  }
+  
+  #demos {
+    a:visited {
+      color: #fff;
+    }
+  }
+  
+  #records {
+    > li:nth-child(even) {
+      background: #ddd;
+    }
   }
 }

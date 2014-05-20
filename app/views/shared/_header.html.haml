@@ -1,0 +1,24 @@
+.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
+  .container
+    .navbar-header
+      .row
+        .col-md-6
+          - unless @archive.nil?
+            %span.thin Search Archive:
+            = @archive.title
+        .col-md-6
+          Project Alexandria
+      .row
+        .col-md-6
+          %span.thin Archive range: Apr 30 - May 13
+        .col-md-6
+          %span.thin History, unedited
+      .row
+        .col-md-6
+          %span.thin Viewing range: Apr 30 - May 3
+        .col-md-6
+      .row
+        .col-md-6
+          %span.thin Filters: none
+        .col-md-6
+          %span.thin Home | Search | About
