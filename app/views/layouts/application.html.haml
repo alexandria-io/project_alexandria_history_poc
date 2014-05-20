@@ -5,10 +5,14 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
-  %body
+  %body#body
     .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
       .container
         .navbar-header
-          = link_to 'Project Alexandria | ', root_url, class: 'navbar-brand'
-          = link_to 'Demos', welcome_demos_path, class: 'navbar-brand'
+          .row
+            .col-md-6
+              - unless @archive.nil?
+                = link_to "Search Archive: #{@archive.title}", root_url, class: 'navbar-brand pull-left'
+            .col-md-6
+              = link_to 'Project Alexandria', root_url, class: 'navbar-brand pull-right'
     = yield

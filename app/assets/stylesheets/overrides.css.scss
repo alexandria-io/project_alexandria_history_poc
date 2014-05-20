@@ -1,11 +1,33 @@
-#demos {
-  a:visited {
-    color: white;
-  }
-}
+body#body {
+  background: #5ec1f0;
 
-#records {
-  > li:nth-child(even) {
-    background: #ddd;
+  .jumbotron {
+    background: inherit;
+    color: #fff;
+  }
+
+  .navbar {
+    background: inherit;
+    border: none;
+
+    a {
+      color: #fff;
+    }
+
+    .navbar-header {
+      width: 100%;
+    }
+  }
+  
+  #demos {
+    a:visited {
+      color: #fff;
+    }
+  }
+  
+  #records {
+    > li:nth-child(even) {
+      background: #ddd;
+    }
   }
 }
