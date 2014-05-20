@@ -1,7 +1,6 @@
 $(document).ready ->
   devicePixelRatio = window.devicePixelRatio || (window.screen.availWidth / document.documentElement.clientWidth)
   canvasElement = $('#my_canvas')[0]
-  console.log canvasElement
   canvasElement.setAttribute('width', canvasElement.offsetWidth * devicePixelRatio)
   canvasElement.setAttribute('height', canvasElement.offsetHeight * devicePixelRatio)
   foo =
