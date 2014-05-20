@@ -3,7 +3,7 @@
     .navbar-header
       .row
         .col-md-6
-          - unless @archive.nil?
+          - if controller_name == 'archives'
             %span.thin Search Archive:
             = @archive.title
         .col-md-6

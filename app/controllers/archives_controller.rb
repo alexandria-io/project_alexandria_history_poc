@@ -71,7 +71,8 @@ class ArchivesController < ApplicationController
   # POST /archives
   # POST /archives.json
   def create
-    @archive = Archive.new params[:archive]
+    @account = Account.find params[:account_id]
+    @archive = @account.archives.new params[:archive]
 
     respond_to do |format|
       if @archive.save
@@ -148,11 +149,9 @@ class ArchivesController < ApplicationController
           #end
         end
 
-        format.html { redirect_to @archive, notice: 'Archive was successfully created.' }
-        format.json { render json: @archive, status: :created, location: @archive }
+        format.html { redirect_to [@account, @archive], notice: 'Archive was successfully created.' }
       else
         format.html { render action: "new" }
-        format.json { render json: @archive.errors, status: :unprocessable_entity }
       end
     end
   end

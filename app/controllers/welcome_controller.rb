@@ -13,9 +13,21 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def brainwallet
-  end
+  def new_archive
+    secret = "#{`rake secret`}".gsub("\n","")
+    account_name = secret[0, 40]
+    newaddress  = HTTParty.get "#{Figaro.env.florincoin_blockchain_ip}command?command=getaccountaddress&account=#{account_name}", 
+      headers: {
+        'Content-Type' => 'application/json', 
+        'Gitcoin-API-Auth-Token' => 'tmp for now of course'
+      }   
+    @account = Account.create address: newaddress['account_address'], name: account_name
 
-  def demos
+    @archive = Account.last.archives.new
+    @archive_item = @archive.archive_items.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+    end
   end
 end
