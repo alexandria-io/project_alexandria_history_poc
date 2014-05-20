@@ -180,7 +180,7 @@ class ArchivesController < ApplicationController
     @archive.destroy
 
     respond_to do |format|
-      format.html { redirect_to archives_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end

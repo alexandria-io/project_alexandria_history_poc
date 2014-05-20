@@ -43,6 +43,10 @@ body#body {
       }
     }
   }
+
+  a, a:visited, a:hover, a:active {
+    color: #fff;
+  }
   
   #demos {
     a:visited {
