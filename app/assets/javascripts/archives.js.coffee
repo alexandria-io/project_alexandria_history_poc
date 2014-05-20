@@ -1,20 +1,27 @@
 $(document).ready ->
-  devicePixelRatio = window.devicePixelRatio || (window.screen.availWidth / document.documentElement.clientWidth)
-  canvasElement = $('#my_canvas')[0]
-  canvasElement.setAttribute('width', canvasElement.offsetWidth * devicePixelRatio)
-  canvasElement.setAttribute('height', canvasElement.offsetHeight * devicePixelRatio)
-  foo =
-    gridSize: Math.round(16 * $("#canvas").width() / 1024)
-    weightFactor: (size) ->
-        Math.pow(size, 2.3) * $("#canvas").width() / 1024
+  device_pixel_ratio = window.devicePixelRatio || (window.screen.availWidth / document.documentElement.clientWidth)
+  canvas_element = $('#word_cloud')[0]
+  $(canvas_element).attr 'width', canvas_element.offsetWidth * device_pixel_ratio
+  $(canvas_element).attr 'height', canvas_element.offsetHeight * device_pixel_ratio
 
-    fontFamily: "Times, serif"
-    color: (word, weight) ->
-      (if (weight is 12) then "#f02222" else "#c09292")
-
-    rotateRatio: 0.5
-    backgroundColor: "#ffe0e0"
-
-  WordCloud canvasElement,
+  WordCloud canvas_element,
     list: $('#canvas_data').data('word-count'),
-    backgroundColor: '#5ec1f0'
+    gridSize: Math.round(16 * $("#canvas").width() / 1024)
+    backgroundColor: '#5ec1f0',
+    rotateRatio: 0,
+    fontFamily: 'helvetica, serif'
+    fontWeight: 200,
+    shape: 'circle',
+    minRotation: 0,
+    maxRotation: 1,
+    color: (word, weight) ->
+      num = _.random(0, 2)
+      if num == 0
+        '#fff'
+      else if num == 1
+        '#4C4C4A'
+      else if num == 2
+        '#404041'
+
+    weightFactor: (size) ->
+      size * 2
