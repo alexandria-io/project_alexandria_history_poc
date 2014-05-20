@@ -1,9 +1,9 @@
 ProjectAlexandria::Application.routes.draw do
   root to: 'welcome#index'
 
-  get 'auth/twitter'
-  get 'auth/twitter/callback', to: 'sessions#create'
-  get 'auth/twitter', to: 'sessions#failure'
+  #get 'auth/twitter'
+  #get 'auth/twitter/callback', to: 'sessions#create'
+  #get 'auth/twitter', to: 'sessions#failure'
 
   resources :archives do
     resources :archive_items do
@@ -13,6 +13,6 @@ ProjectAlexandria::Application.routes.draw do
     end
   end
 
-  get 'welcome/brainwallet'
-  get 'welcome/demos'
+  #get 'welcome/brainwallet'
+  #get 'welcome/demos'
 end

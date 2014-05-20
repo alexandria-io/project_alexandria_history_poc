@@ -33,7 +33,7 @@ class ArchivesController < ApplicationController
               end
             end
           else 
-            if !['the', 'The', 'a', 'A', 'i', 'I', 'to', 'To','for', 'For', 'that', 'That', 'of', 'Of'].include? word
+            if !['the', 'The', 'a', 'A', 'i', 'I', 'to', 'To','for', 'For', 'that', 'That', 'of', 'Of', 'RT', 'and'].include? word
               @tmp_words << word
               @word_count_array << [word, 1]
             end
@@ -88,11 +88,11 @@ class ArchivesController < ApplicationController
             })
             record.save
 
-            response = HTTParty.post("#{Figaro.env.florincoin_blockchain_ip}tip?token=foobar8&team_id=foobar&team_domain=foobar&service_id=foobar&channel_id=foobar&channel_name=sw_bots&timestamp=foobar.000198&user_id=foobar&user_name=carlos&text=tip&tweet_text=#{Rack::Utils.escape(tweet['text'])}&trigger_word=litecointipper", 
-            headers: {
-                'Content-Type' => 'application/json'
-              }
-            )
+            #response = HTTParty.post("#{Figaro.env.florincoin_blockchain_ip}tip?token=foobar8&team_id=foobar&team_domain=foobar&service_id=foobar&channel_id=foobar&channel_name=sw_bots&timestamp=foobar.000198&user_id=foobar&user_name=carlos&text=tip&tweet_text=#{Rack::Utils.escape(tweet['text'])}&trigger_word=litecointipper", 
+            #headers: {
+            #    'Content-Type' => 'application/json'
+            #  }
+            #)
 
             tweet = record.create_tweet({
               tweet_text: tweet['text'],
