@@ -49,8 +49,23 @@ body#body {
       color: #fff;
     }
   }
+
+  #popular {
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    border-color: #fff;
+
+    > .col-md-6:nth-child(2) {
+      border-style: solid;
+      border-width: 0 0 0 2px;
+    }
+  }
   
   #records {
+    > .col-md-6:nth-child(2) {
+      border-style: solid;
+      border-width: 0 0 0 2px;
+    }
     ul {
       padding-left: 0;
 
@@ -64,11 +79,5 @@ body#body {
   #my_canvas {
     width: 1000px;
     height: 400px;
-  }
-
-  #popular {
-    border-style: solid;
-    border-width: 0 0 2px 0;
-    border-color: #fff;
   }
 }
