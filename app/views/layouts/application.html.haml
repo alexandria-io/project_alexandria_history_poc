@@ -6,13 +6,5 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body#body
-    .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
-      .container
-        .navbar-header
-          .row
-            .col-md-6
-              - unless @archive.nil?
-                = link_to "Search Archive: #{@archive.title}", root_url, class: 'navbar-brand pull-left'
-            .col-md-6
-              = link_to 'Project Alexandria', root_url, class: 'navbar-brand pull-right'
+    = render 'shared/header'
     = yield

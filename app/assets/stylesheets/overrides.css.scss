@@ -1,5 +1,7 @@
 body#body {
   background: #5ec1f0;
+  font-family: helvetica;
+  font-weight: 200;
 
   .jumbotron {
     background: inherit;
@@ -9,13 +11,35 @@ body#body {
   .navbar {
     background: inherit;
     border: none;
-
-    a {
-      color: #fff;
-    }
+    color: #fff;
 
     .navbar-header {
       width: 100%;
+      margin-top: 15px;
+
+      > .row {
+        font-weight: bold;
+        margin-bottom: 10px;
+
+        .thin {
+          font-weight: 200;
+        }
+        .col-md-6:first-child {
+          text-align: left;
+        }
+
+        .col-md-6:nth-child(2){
+          text-align: right;
+        }
+      }
+
+      > .row:first-child {
+        font-size: 2em;
+      }
+
+      > .row:nth-child(2), > .row:nth-child(3){
+        font-size: 1.5em;
+      }
     }
   }
   
