@@ -1,6 +1,6 @@
 $(document).ready ->
   devicePixelRatio = window.devicePixelRatio || (window.screen.availWidth / document.documentElement.clientWidth)
-  canvasElement = $('#my_canvas')[0]
+  canvasElement = $('#word_cloud')[0]
   canvasElement.setAttribute('width', canvasElement.offsetWidth * devicePixelRatio)
   canvasElement.setAttribute('height', canvasElement.offsetHeight * devicePixelRatio)
   foo =
