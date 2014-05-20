@@ -2,6 +2,7 @@ body#body {
   background: #5ec1f0;
   font-family: helvetica;
   font-weight: 200;
+  color: #fff;
 
   .jumbotron {
     background: inherit;
@@ -50,8 +51,16 @@ body#body {
   }
   
   #records {
-    > li:nth-child(even) {
-      background: #ddd;
-    }
+  }
+
+  #my_canvas {
+    width: 1000px;
+    height: 400px;
+  }
+
+  #popular {
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    border-color: #fff;
   }
 }

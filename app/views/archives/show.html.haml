@@ -2,13 +2,21 @@
   .row
     .col-lg-12#canvas_data{:'data-word-count' => @word_count_array}
       %canvas#my_canvas
+  .row#popular
+    .col-md-6
+      %h4.thin Most Popular Links
+    .col-md-6
+      %h4.thin Most Popular Videos
   .row
-    %ul#records
-      %li
-        - @archive_items.each do |archive_item|
-          %ul
-            %li= "Term : #{archive_item.item_term}"
-            %li= "Type: #{archive_item.item_type}"
-            %ul
-              - archive_item.records.each do |record|
-                %li= record.tweet.tweet_text
+    .col-md-6
+      %ul#records
+        - 3.times do |link|
+          = render 'popular_link'
+    .col-md-6
+      %ul#records
+        %li
+          two
+        %li
+          two
+        %li
+          two
