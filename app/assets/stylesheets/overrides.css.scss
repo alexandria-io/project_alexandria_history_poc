@@ -51,6 +51,14 @@ body#body {
   }
   
   #records {
+    ul {
+      padding-left: 0;
+
+      li {
+        list-style-type: none;
+        margin: 10px 0;
+      }
+    }
   }
 
   #my_canvas {
