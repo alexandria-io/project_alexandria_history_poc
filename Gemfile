@@ -73,3 +73,5 @@ gem 'omniauth-twitter'
 gem 'httparty', '~> 0.13.0'
 
 gem 'twitter'
+
+gem 'friendly_id', '~> 4.0.10'

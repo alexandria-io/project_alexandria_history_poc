@@ -69,6 +69,8 @@ GEM
       bundler (~> 1.0)
       rails (>= 3, < 5)
     formatador (0.2.4)
+    friendly_id (4.0.10.1)
+      activerecord (>= 3.0, < 4.0)
     guard (2.4.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -238,6 +240,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   figaro (~> 0.7.0)
+  friendly_id (~> 4.0.10)
   guard-rspec
   haml-rails
   httparty (~> 0.13.0)
