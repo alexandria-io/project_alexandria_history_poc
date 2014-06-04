@@ -19,6 +19,7 @@ class ArchivesController < ApplicationController
   # GET /archives/1.json
   def show
     @archive = Archive.find params[:id]
+    Resque.enqueue(ArchiveCreationPricer, @archive)
     @tmp_words = []
     @word_count_array = []
     @archive.records.each do |record|
