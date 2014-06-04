@@ -1,6 +1,6 @@
 class Record < ActiveRecord::Base
-  attr_accessible :archive_item_id, :record_type
+  attr_accessible :archive_id, :record_type
 
-  belongs_to :archive_item
+  belongs_to :archive
   has_one :tweet, dependent: :destroy
 end

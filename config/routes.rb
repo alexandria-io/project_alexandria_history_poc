@@ -1,5 +1,6 @@
 ProjectAlexandria::Application.routes.draw do
   root to: 'welcome#index'
+  mount Resque::Server, at: '/resque'
 
   #get 'auth/twitter'
   #get 'auth/twitter/callback', to: 'sessions#create'
