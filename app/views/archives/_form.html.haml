@@ -7,16 +7,15 @@
         %header.panel-heading.font-bold Edit Archive
       .panel-body
         = form_for @archive do |f|
-        
           .form-group
-            %label Title
-            = f.text_field :title, class: 'form-control', placeholder: "Enter Title" 
-        
-          = f.fields_for :archive_items do |ff| 
-            .form-group
-              %p= ff.label :item_term
-              %p= ff.text_field :item_term, class: 'form-control', placeholder: "Enter username or search term"
-            .form-group
-              %p= ff.label :item_type
-              %p= ff.text_field :item_type, class: 'form-control', placeholder: "Enter 'username' or 'search' term"
+            %label Archive Term
+            = f.text_field :archive_term, class: 'form-control', placeholder: "Enter Term" 
+          .form-group
+            %label Archive Type
+            %p
+              = f.radio_button :archive_type, 'username', checked: true 
+              = f.label :archive_type, 'Username'
+            %p
+              = f.radio_button :archive_type, 'search', checked: false
+              = f.label :archive_type, 'Search'
           %button.btn.btn-sm.btn-success{type: "submit"} Submit

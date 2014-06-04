@@ -11,27 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140503204907) do
-
-  create_table "archive_items", :force => true do |t|
-    t.integer  "archive_id"
-    t.string   "item_term"
-    t.string   "item_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+ActiveRecord::Schema.define(:version => 20140425213651) do
 
   create_table "archives", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "archive_term"
+    t.string   "archive_type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "records", :force => true do |t|
-    t.integer  "archive_item_id"
+    t.integer  "archive_id"
     t.string   "record_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "tweets", :force => true do |t|

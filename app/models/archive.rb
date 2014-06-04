@@ -1,7 +1,5 @@
 class Archive < ActiveRecord::Base
-  attr_accessible :title, :archive_items_attributes
+  attr_accessible :archive_term, :archive_type
 
-  has_many :archive_items, dependent: :destroy
-
-  accepts_nested_attributes_for :archive_items, allow_destroy: true
+  has_many :records, dependent: :destroy
 end
