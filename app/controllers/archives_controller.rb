@@ -70,7 +70,6 @@ class ArchivesController < ApplicationController
 
     respond_to do |format|
       if @archive.save
-        puts @archive
         Resque.enqueue(ArchiveCreationPricer, @archive, params)
         #client = return_twitter_client
 

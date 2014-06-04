@@ -266,6 +266,7 @@ DEPENDENCIES
   pg
   railroady
   rails (~> 3.2.18)
+  redis
   resque
   rspec-rails
   sass-rails (~> 3.2.3)
