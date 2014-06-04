@@ -9,7 +9,7 @@
         = form_for @archive do |f|
           .form-group
             %label Archive Term
-            = f.text_field :archive_term, class: 'form-control', placeholder: "Enter Term" 
+            = f.text_field :archive_term, class: 'form-control', placeholder: 'Enter Term' 
           .form-group
             %label Archive Type
             %p
@@ -18,4 +18,4 @@
             %p
               = f.radio_button :archive_type, 'search', checked: false
               = f.label :archive_type, 'Search'
-          %button.btn.btn-sm.btn-success{type: "submit"} Submit
+          %button.btn.btn-sm.btn-success{type: 'submit'} Submit
