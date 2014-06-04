@@ -19,7 +19,6 @@ class ArchivesController < ApplicationController
   # GET /archives/1.json
   def show
     @archive = Archive.find params[:id]
-    Resque.enqueue(ArchiveCreationPricer, @archive)
     @tmp_words = []
     @word_count_array = []
     @archive.records.each do |record|
@@ -71,78 +70,80 @@ class ArchivesController < ApplicationController
 
     respond_to do |format|
       if @archive.save
-        client = return_twitter_client
+        puts @archive
+        Resque.enqueue(ArchiveCreationPricer, @archive)
+        #client = return_twitter_client
 
-        last_archive_item = @archive
-        term = last_archive_item.archive_term
+        #last_archive_item = @archive
+        #term = last_archive_item.archive_term
 
-        if last_archive_item.archive_type == 'username'
-          tweets = client.user_timeline(term, options = {count: 200, include_rts: 1})
-          tweets.each do |tweet|
-            record = last_archive_item.records.create({
-              record_type: 'tweet',
-            })
-            record.save
+        #if last_archive_item.archive_type == 'username'
+        #  tweets = client.user_timeline(term, options = {count: 200, include_rts: 1})
+        #  tweets.each do |tweet|
+        #    record = last_archive_item.records.create({
+        #      record_type: 'tweet',
+        #    })
+        #    record.save
 
-            #response = HTTParty.post("#{Figaro.env.florincoin_blockchain_ip}tip?token=foobar8&team_id=foobar&team_domain=foobar&service_id=foobar&channel_id=foobar&channel_name=sw_bots&timestamp=foobar.000198&user_id=foobar&user_name=carlos&text=tip&tweet_text=#{Rack::Utils.escape(tweet['text'])}&trigger_word=litecointipper", 
-            #headers: {
-            #    'Content-Type' => 'application/json'
-            #  }
-            #)
+        #    #response = HTTParty.post("#{Figaro.env.florincoin_blockchain_ip}tip?token=foobar8&team_id=foobar&team_domain=foobar&service_id=foobar&channel_id=foobar&channel_name=sw_bots&timestamp=foobar.000198&user_id=foobar&user_name=carlos&text=tip&tweet_text=#{Rack::Utils.escape(tweet['text'])}&trigger_word=litecointipper", 
+        #    #headers: {
+        #    #    'Content-Type' => 'application/json'
+        #    #  }
+        #    #)
 
-            tweet = record.create_tweet({
-              tweet_text: tweet['text'],
-              created_date: tweet['created_at']
-            })
-          end
-          
-          #last_id = tweets.last.id
-          #5.times do |index| 
-          #  tweetz = client.user_timeline(term, options = {count: 200, include_rts: 1, max_id: last_id})
-          #  tweetz.each do |tweet|
-          #    record = last_archive_item.records.create({
-          #      record_type: 'tweet',
-          #    })
-          #    record.save
-          #    tweet = record.create_tweet({
-          #      tweet_text: tweet['text'],
-          #      created_date: tweet['created_at']
-          #    })
-          #  end
-          #  last_id = tweets.last.id
-          #end
-        elsif last_archive_item.archive_type == 'search'
-          tweets = client.search(term, result_type: 'recent').take(200).collect
-          #last_id = 0
-          tweets.each do |tweet|
-            record = last_archive_item.records.create({
-              record_type: 'tweet',
-            })
-            record.save
-            tweet = record.create_tweet({
-              tweet_text: "#{tweet.user.screen_name}: #{tweet.text}",
-              created_date: tweet['created_at']
-            })
-            #last_id = tweet.id
-          end
-          
-          #15.times do |index| 
-          #  tweets = client.search(term, result_type: 'recent', max_id: last_id).take(200).collect
-          #  tweets.each do |tweet|
-          #    puts tweet.id
-          #    record = last_archive_item.records.create({
-          #      record_type: 'tweet',
-          #    })
-          #    record.save
-          #    tweet = record.create_tweet({
-          #      tweet_text: tweet['text'],
-          #      created_date: tweet['created_at']
-          #    })
+        #    tweet = record.create_tweet({
+        #      tweet_text: tweet['text'],
+        #      created_date: tweet['created_at']
+        #    })
+        #  end
+        #  
+        #  #last_id = tweets.last.id
+        #  #5.times do |index| 
+        #  #  tweetz = client.user_timeline(term, options = {count: 200, include_rts: 1, max_id: last_id})
+        #  #  tweetz.each do |tweet|
+        #  #    record = last_archive_item.records.create({
+        #  #      record_type: 'tweet',
+        #  #    })
+        #  #    record.save
+        #  #    tweet = record.create_tweet({
+        #  #      tweet_text: tweet['text'],
+        #  #      created_date: tweet['created_at']
+        #  #    })
+        #  #  end
+        #  #  last_id = tweets.last.id
+        #  #end
+        #elsif last_archive_item.archive_type == 'search'
+        #  tweets = client.search(term, result_type: 'recent').take(200).collect
+        #  #last_id = 0
+        #  tweets.each do |tweet|
+        #    record = last_archive_item.records.create({
+        #      record_type: 'tweet',
+        #    })
+        #    record.save
+        #    tweet = record.create_tweet({
+        #      tweet_text: "#{tweet.user.screen_name}: #{tweet.text}",
+        #      created_date: tweet['created_at']
+        #    })
+        #    #last_id = tweet.id
+        #  end
+        #  
+        #  #15.times do |index| 
+        #  #  tweets = client.search(term, result_type: 'recent', max_id: last_id).take(200).collect
+        #  #  tweets.each do |tweet|
+        #  #    puts tweet.id
+        #  #    record = last_archive_item.records.create({
+        #  #      record_type: 'tweet',
+        #  #    })
+        #  #    record.save
+        #  #    tweet = record.create_tweet({
+        #  #      tweet_text: tweet['text'],
+        #  #      created_date: tweet['created_at']
+        #  #    })
 
-          #  last_id = tweet.id
-          #  end
-          #end
-        end
+        #  #  last_id = tweet.id
+        #  #  end
+        #  #end
+        #end
 
         format.html { redirect_to @archive, notice: 'Archive was successfully created.' }
         format.json { render json: @archive, status: :created, location: @archive }

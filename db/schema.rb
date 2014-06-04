@@ -16,8 +16,10 @@ ActiveRecord::Schema.define(:version => 20140425213651) do
   create_table "archives", :force => true do |t|
     t.string   "archive_term"
     t.string   "archive_type"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.string   "florincoin_address"
+    t.decimal  "florincoin_price"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "records", :force => true do |t|
