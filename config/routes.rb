@@ -6,6 +6,7 @@ ProjectAlexandria::Application.routes.draw do
   #get 'auth/twitter/callback', to: 'sessions#create'
   #get 'auth/twitter', to: 'sessions#failure'
 
+  resources :librarians
   resources :archives do
     resources :archive_items do
       resources :records do

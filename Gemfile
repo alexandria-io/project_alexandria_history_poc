@@ -72,6 +72,8 @@ gem 'omniauth-twitter'
 # HTTP Webservice Gem
 gem 'httparty', '~> 0.13.0'
 
+gem 'twitter'
+
 gem 'resque', require: 'resque/server'
 gem 'redis'
-gem 'twitter'
+gem 'delayed_job_active_record'

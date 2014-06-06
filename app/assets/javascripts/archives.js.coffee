@@ -1,5 +1,5 @@
 $(document).ready ->
-  if $('#price_data').length
+  if $('#price_data').length and $('#spinner').data('show-spinner') == true
     check_price = setInterval (->
       $.get "#{$('#spinner').data('archive-id')}.json", (data) ->
         unless data.florincoin_price == null && data.florincoin_address  == null
@@ -8,7 +8,7 @@ $(document).ready ->
           $('#florincoin_address').text data.florincoin_address
           clearInterval check_price
 
-    ), 2000
+    ), 5000
   device_pixel_ratio = window.devicePixelRatio || (window.screen.availWidth / document.documentElement.clientWidth)
   canvas_element = $('#word_cloud')[0]
   $(canvas_element).attr 'width', canvas_element.offsetWidth * device_pixel_ratio

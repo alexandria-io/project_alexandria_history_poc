@@ -1,0 +1,13 @@
+= form_for @librarian do |f|
+  - if @librarian.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@librarian.errors.count, "error")} prohibited this librarian from being saved:"
+      %ul
+        - @librarian.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .actions
+    = f.submit 'Save'

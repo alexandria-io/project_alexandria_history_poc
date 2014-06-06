@@ -18,9 +18,15 @@ class ArchivesController < ApplicationController
   # GET /archives/1
   # GET /archives/1.json
   def show
+
     @archive = Archive.find params[:id]
     @tmp_words = []
     @word_count_array = []
+    if @archive.florincoin_price.nil? && @archive.florincoin_address.nil?
+      @show_spinner = 'true'
+    else
+      @show_spinner = 'false'
+    end
     @archive.records.each do |record|
       record.tweet.tweet_text.split(' ').each do |word|
         if @tmp_words.include? word
@@ -70,7 +76,12 @@ class ArchivesController < ApplicationController
 
     respond_to do |format|
       if @archive.save
-        Resque.enqueue(ArchiveCreationPricer, @archive, params)
+        require 'chain_api'
+        #account = Chain::ChainAPI.new({address: accountaddress['accountaddress']}).listtransactions
+        puts 'starting resque'
+        Resque.enqueue(ArchiveCreationPricer, @archive)
+        #tx = Chain::ChainAPI.new({account: '5e434ab9d6c5fb2870351df70dd62f7f5f568f8be26da1da52655ceb0d7a8375', address: default_account_address}).sendfrom
+
         #client = return_twitter_client
 
         #last_archive_item = @archive
