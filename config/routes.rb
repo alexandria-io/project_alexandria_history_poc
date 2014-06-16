@@ -1,4 +1,6 @@
 ProjectAlexandria::Application.routes.draw do
+
+
   root to: 'welcome#index'
   mount Resque::Server, at: '/resque'
 
@@ -8,10 +10,12 @@ ProjectAlexandria::Application.routes.draw do
 
   resources :librarians
   resources :archives do
+    resources :volumes do
+      resources :pages
+    end
+    resources :torrents
     resources :archive_items do
-      resources :records do
-        resources :tweets, path: :tweet
-      end
+      resources :records
     end
   end
 

@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Archive:
+  = @volume.archive_id
+%p
+  %b Volume title:
+  = @volume.volume_title
+
+= link_to 'Edit', edit_volume_path(@volume)
+\|
+= link_to 'Back', volumes_path

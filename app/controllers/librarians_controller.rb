@@ -15,6 +15,7 @@ class LibrariansController < ApplicationController
   def show
     @librarian = Librarian.find(params[:id])
     Librarian.delay({run_at: 5.seconds.from_now}).check_for_requested_archives()
+    #Resque.enqueue(VolumeCreator, Archive.find(1))
 
     respond_to do |format|
       format.html # show.html.erb

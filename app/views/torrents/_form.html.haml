@@ -1,0 +1,16 @@
+= form_for @torrent do |f|
+  - if @torrent.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@torrent.errors.count, "error")} prohibited this torrent from being saved:"
+      %ul
+        - @torrent.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :archive_id
+    = f.number_field :archive_id
+  .field
+    = f.label :title
+    = f.text_field :title
+  .actions
+    = f.submit 'Save'

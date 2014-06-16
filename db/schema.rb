@@ -11,15 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140606180235) do
+ActiveRecord::Schema.define(:version => 20140612200102) do
 
   create_table "archives", :force => true do |t|
     t.string   "archive_term"
     t.string   "archive_type"
+    t.string   "archive_title"
     t.string   "florincoin_address"
     t.decimal  "florincoin_price"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.boolean  "creating_archive",   :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -44,17 +46,41 @@ ActiveRecord::Schema.define(:version => 20140606180235) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "records", :force => true do |t|
-    t.integer  "archive_id"
-    t.string   "record_type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+  create_table "pages", :force => true do |t|
+    t.integer  "volume_id"
+    t.string   "page_title"
+    t.text     "page_text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  create_table "tweets", :force => true do |t|
-    t.integer  "record_id"
+  create_table "records", :force => true do |t|
+    t.integer  "archive_id"
+    t.integer  "favorite_count"
+    t.string   "filter_level"
+    t.string   "in_reply_to_screen_name"
+    t.string   "in_reply_to_attrs_id"
+    t.string   "in_reply_to_status_id"
+    t.string   "in_reply_to_user_id"
+    t.string   "lang"
+    t.integer  "retweet_count"
+    t.string   "source"
     t.text     "tweet_text"
     t.datetime "created_date"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  create_table "torrents", :force => true do |t|
+    t.integer  "archive_id"
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "volumes", :force => true do |t|
+    t.integer  "archive_id"
+    t.string   "volume_title"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end

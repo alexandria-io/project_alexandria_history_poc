@@ -6,7 +6,6 @@ class ArchivesController < ApplicationController
     #client = return_twitter_client
     #tweets = client.user_timeline(@archives.first.title, options = {count: 200, include_rts: true})
     #tweets.each do |tweet|
-    #  puts tweet['created_at']
     #end
 
     respond_to do |format|
@@ -18,33 +17,35 @@ class ArchivesController < ApplicationController
   # GET /archives/1
   # GET /archives/1.json
   def show
-
     @archive = Archive.find params[:id]
-    @tmp_words = []
-    @word_count_array = []
+    @volumes = @archive.volumes
+
     if @archive.florincoin_price.nil? && @archive.florincoin_address.nil?
       @show_spinner = 'true'
     else
       @show_spinner = 'false'
     end
-    @archive.records.each do |record|
-      record.tweet.tweet_text.split(' ').each do |word|
-        if @tmp_words.include? word
-          @word_count_array.each do |word_count|
-            if word_count[0] == word
-              word_count[1] += 1
+
+    @tmp_words = []
+    @word_count_array = []
+
+    unless @volumes.empty?
+      @volumes.first.pages.each do |page|
+        JSON.parse(page.page_text).each do |tweet|
+          tweet['tweet_text'].split(' ').each do |word|
+            @word_count_array.each do |word_count|
+              if word_count[0] == word
+                word_count[1] += 1
+              end
             end
-          end
-        else 
-          if !['the', 'The', 'a', 'A', 'i', 'I', 'to', 'To','for', 'For', 'that', 'That', 'of', 'Of', 'RT', 'and'].include? word
-            @tmp_words << word
-            @word_count_array << [word, 1]
+            if !['the', 'The', 'a', 'A', 'i', 'I', 'to', 'To','for', 'For', 'that', 'That', 'of', 'Of', 'RT', 'and'].include? word
+              @tmp_words << word
+              @word_count_array << [word, 1]
+            end
           end
         end
       end
     end
-
-    #@records = @archive.records
 
     respond_to do |format|
       format.html # show.html.erb
@@ -72,13 +73,13 @@ class ArchivesController < ApplicationController
   # POST /archives
   # POST /archives.json
   def create
+    params[:archive][:archive_title] = "#{params[:archive][:archive_term].parameterize}_#{Time.now.to_i}"
     @archive = Archive.new params[:archive]
 
     respond_to do |format|
       if @archive.save
         require 'chain_api'
         #account = Chain::ChainAPI.new({address: accountaddress['accountaddress']}).listtransactions
-        puts 'starting resque'
         Resque.enqueue(ArchiveCreationPricer, @archive)
         #tx = Chain::ChainAPI.new({account: '5e434ab9d6c5fb2870351df70dd62f7f5f568f8be26da1da52655ceb0d7a8375', address: default_account_address}).sendfrom
 
@@ -140,7 +141,6 @@ class ArchivesController < ApplicationController
         #  #15.times do |index| 
         #  #  tweets = client.search(term, result_type: 'recent', max_id: last_id).take(200).collect
         #  #  tweets.each do |tweet|
-        #  #    puts tweet.id
         #  #    record = last_archive_item.records.create({
         #  #      record_type: 'tweet',
         #  #    })
