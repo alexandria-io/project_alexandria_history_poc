@@ -1,0 +1,19 @@
+%h1 Listing librarians
+
+%table
+  %tr
+    %th Title
+    %th
+    %th
+    %th
+
+  - @librarians.each do |librarian|
+    %tr
+      %td= librarian.title
+      %td= link_to 'Show', librarian
+      %td= link_to 'Edit', edit_librarian_path(librarian)
+      %td= link_to 'Destroy', librarian, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Librarian', new_librarian_path

@@ -1,0 +1,21 @@
+%h1 Listing torrents
+
+%table
+  %tr
+    %th Archive
+    %th Title
+    %th
+    %th
+    %th
+
+  - @torrents.each do |torrent|
+    %tr
+      %td= torrent.archive_id
+      %td= torrent.title
+      %td= link_to 'Show', torrent
+      %td= link_to 'Edit', edit_torrent_path(torrent)
+      %td= link_to 'Destroy', torrent, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Torrent', new_torrent_path

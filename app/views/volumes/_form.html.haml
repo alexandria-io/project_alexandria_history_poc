@@ -1,0 +1,16 @@
+= form_for @volume do |f|
+  - if @volume.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@volume.errors.count, "error")} prohibited this volume from being saved:"
+      %ul
+        - @volume.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :archive_id
+    = f.number_field :archive_id
+  .field
+    = f.label :volume_title
+    = f.text_field :volume_title
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Volume:
+  = @page.volume_id
+%p
+  %b Page title:
+  = @page.page_title
+
+= link_to 'Edit', edit_page_path(@page)
+\|
+= link_to 'Back', pages_path

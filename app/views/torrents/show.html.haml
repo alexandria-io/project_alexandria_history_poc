@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Archive:
+  = @torrent.archive_id
+%p
+  %b Title:
+  = @torrent.title
+
+= link_to 'Edit', edit_torrent_path(@torrent)
+\|
+= link_to 'Back', torrents_path

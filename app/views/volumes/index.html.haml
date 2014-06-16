@@ -1,0 +1,21 @@
+%h1 Listing volumes
+
+%table
+  %tr
+    %th Archive
+    %th Volume title
+    %th
+    %th
+    %th
+
+  - @volumes.each do |volume|
+    %tr
+      %td= volume.archive_id
+      %td= volume.volume_title
+      %td= link_to 'Show', volume
+      %td= link_to 'Edit', edit_volume_path(volume)
+      %td= link_to 'Destroy', volume, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Volume', new_volume_path
