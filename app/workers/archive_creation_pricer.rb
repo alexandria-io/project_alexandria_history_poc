@@ -65,7 +65,7 @@ class ArchiveCreationPricer
     puts "archive_make_cost: #{archive_make_cost}"
 
     # 12 months of storage (per month of archiving)
-    annual_archive_storage_cost = lease_gb_month * target_seed / ( 1024^3 ) * archive_size_month * 12
+    annual_archive_storage_cost = lease_gb_month * target_seed / ( 1024 * 1024 * 1024) * archive_size_month * 12
     puts "annual_archive_storage_cost: #{annual_archive_storage_cost}"
 
     # Total price per month of creating a new archive (including 1 year of storage)
