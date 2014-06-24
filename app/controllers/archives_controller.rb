@@ -73,6 +73,7 @@ class ArchivesController < ApplicationController
   # POST /archives
   # POST /archives.json
   def create
+    puts params
     params[:archive][:archive_title] = "#{params[:archive][:archive_term].parameterize}_#{Time.now.to_i}"
     @archive = Archive.new params[:archive]
 
