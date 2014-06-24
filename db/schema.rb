@@ -17,11 +17,12 @@ ActiveRecord::Schema.define(:version => 20140612200102) do
     t.string   "archive_term"
     t.string   "archive_type"
     t.string   "archive_title"
+    t.integer  "archive_time_length"
     t.string   "florincoin_address"
     t.decimal  "florincoin_price"
-    t.boolean  "creating_archive",   :default => false
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.boolean  "creating_archive",    :default => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   create_table "delayed_jobs", :force => true do |t|

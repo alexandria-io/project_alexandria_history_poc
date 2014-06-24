@@ -1,5 +1,5 @@
 class Archive < ActiveRecord::Base
-  attr_accessible :archive_term, :archive_type, :archive_title, :florincoin_address, :florincoin_price, :creating_archive
+  attr_accessible :archive_term, :archive_type, :archive_title, :archive_time_length, :florincoin_address, :florincoin_price, :creating_archive
 
   has_many :torrents, dependent: :destroy
   has_many :volumes, dependent: :destroy
