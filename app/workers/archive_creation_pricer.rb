@@ -73,7 +73,7 @@ class ArchiveCreationPricer
     puts "archive_create_price_per_month: #{archive_create_price_per_month}"
 
     # update model
-    archive[:florincoin_price] = archive_create_price_per_month * archive.archive_time_length
+    archive[:florincoin_price] = (annual_archive_storage_cost + archive_make_cost) * archive.archive_time_length
     archive[:florincoin_address] = accountaddress['accountaddress']
     archive.save
 
