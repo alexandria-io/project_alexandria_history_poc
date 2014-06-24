@@ -24,8 +24,88 @@ class ArchiveCreationPricer
     target_seed = 50
     puts "target_seed: #{target_seed}"
 
+    client = Twitter::REST::Client.new do |config|
+
+      config.consumer_key    = Figaro.env.twitter_api_key
+
+      config.consumer_secret = Figaro.env.twitter_api_secret
+
+    end
+
+    page_text_array = []
+
+    if archive['archive_type'] == 'username'
+
+      tweets = client.user_timeline(archive['archive_term'], options = {count: 200, include_rts: 1})
+
+    elsif archive['archive_type'] == 'search'
+
+      tweets = client.user_timeline(archive['archive_term'], options = {count: 200, include_rts: 1})
+
+    end
+
+    tweets.each do |message|
+
+      tweet_details = {
+        'tweet_id' => message.id,
+        'favorite_count' => message.favorite_count,
+        'filter_level' => message.filter_level,
+        'in_reply_to_screen_name' => message.in_reply_to_screen_name,
+        'in_reply_to_attrs_id' => message.in_reply_to_attrs_id,
+        'in_reply_to_status_id' => message.in_reply_to_status_id,
+        'in_reply_to_user_id' => message.in_reply_to_user_id,
+        'lang' => message.lang,
+        'retweet_count' => message.retweet_count,
+        'source' => message.source,
+        'tweet_text' => message.text,
+        'created_date' => message.created_at.to_i
+      }
+
+      page_text_array << tweet_details
+
+    end
+
+    last_id = tweets.last.id
+
+    5.times do |index| 
+
+      tweetz = client.user_timeline(archive['archive_term'], options = {count: 200, include_rts: 1, max_id: last_id})
+
+      tweetz.each do |tweet|
+
+        tweet_details = {
+          'tweet_id' => tweet.id,
+          'favorite_count' => tweet.favorite_count,
+          'filter_level' => tweet.filter_level,
+          'in_reply_to_screen_name' => tweet.in_reply_to_screen_name,
+          'in_reply_to_attrs_id' => tweet.in_reply_to_attrs_id,
+          'in_reply_to_status_id' => tweet.in_reply_to_status_id,
+          'in_reply_to_user_id' => tweet.in_reply_to_user_id,
+          'lang' => tweet.lang,
+          'retweet_count' => tweet.retweet_count,
+          'source' => tweet.source,
+          'tweet_text' => tweet.text,
+          'created_date' => tweet.created_at.to_i
+        }
+
+        page_text_array << tweet_details
+        
+      end
+
+      last_id = tweets.last.id
+
+    end
+
+    volume = archive.volumes.create volume_title: "#{archive_data['archive_title']}_volume_1" 
+
+    volume.save
+
+    page = volume.pages.create page_title: "#{volume['volume_title']}_page_1", page_text: page_text_array.to_json
+
+    page.save
+
     # Number of tweets in Volume 1, Page 1 of an archive
-    volume1_page1_tweets = 1300
+    volume1_page1_tweets = page_text_array.count
     puts "volume1_page1_tweets: #{volume1_page1_tweets}"
 
     # Timestamp of earliest tweet in Volume 1, Page 1 of an archive
