@@ -9,8 +9,8 @@ class ArchiveCreationPricer
 
     # price archive
     # Rate Alexandria pays for distributed archiving per concurrent archive per day
-    archive_market_pay = 0.0004
-    puts "archive_market_pay: #{archive_market_pay}"
+    archive_make_pay = 0.0004
+    puts "archive_make_pay: #{archive_make_pay}"
 
     # Target number of active archivers per archive
     target_archivers_per_archive = 10
@@ -61,15 +61,15 @@ class ArchiveCreationPricer
     puts "archive_total_size_calc: #{archive_total_size_calc}"
 
     # Cost to make archive (per month)
-    archive_market_cost = archive_market_pay * target_archivers_per_archive * 365 / 12
-    puts "archive_market_cost: #{archive_market_cost}"
+    archive_make_cost = archive_make_pay * target_archivers_per_archive * 365 / 12
+    puts "archive_make_cost: #{archive_make_cost}"
 
     # 12 months of storage (per month of archiving)
     annual_archive_storage_cost = lease_gb_month * target_seed / ( 1024^3 ) * archive_size_month * 12
     puts "annual_archive_storage_cost: #{annual_archive_storage_cost}"
 
     # Total price per month of creating a new archive (including 1 year of storage)
-    archive_create_price_per_month = archive_market_cost + annual_archive_storage_cost
+    archive_create_price_per_month = archive_make_cost + annual_archive_storage_cost
     puts "archive_create_price_per_month: #{archive_create_price_per_month}"
 
     # update model
