@@ -41,7 +41,7 @@ class ArchiveCreationPricer
     puts "volume1_page1_size: #{volume1_page1_size}"
 
     # Rate of new tweets per minute
-    tweet_rate = volume1_page1_tweets.to_f / ((volume1_page1_time - volume1_page1_oldest) * 24 * 60)
+    tweet_rate = volume1_page1_tweets.to_f / ((volume1_page1_time - volume1_page1_oldest) * 60)
     puts "Tweet rate: #{tweet_rate}"
 
     # Estimated number of pages per month with zero new tweets in them
