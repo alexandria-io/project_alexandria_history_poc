@@ -72,8 +72,23 @@ class ArchiveCreationPricer
     archive_create_price_per_month = archive_make_cost + annual_archive_storage_cost
     puts "archive_create_price_per_month: #{archive_create_price_per_month}"
 
+    final_archive_cost = sprintf('%.2f', (annual_archive_storage_cost + archive_make_cost) * archive.archive_time_length)
+    puts "final_archive_cost: #{final_archive_cost}"
+
+    # final_archive_cost -> btc
+    final_archive_cost_btc = sprintf('%.8f', final_archive_cost.to_f * HTTParty.get('https://coinbase.com/api/v1/currencies/exchange_rates')['usd_to_btc'].to_f)
+    puts "final_archive_cost_btc: #{final_archive_cost_btc}"
+
+    # final_archive_cost -> ltc
+    final_archive_cost_ltc = sprintf('%.8f', final_archive_cost_btc.to_f / HTTParty.get('http://pubapi.cryptsy.com/api.php?method=singlemarketdata&marketid=3')['return']['markets']['LTC']['lasttradeprice'].to_f)
+    puts "final_archive_cost_ltc: #{final_archive_cost_ltc}"
+
+    # final_archive_cost -> flo
+    final_archive_cost_flo = sprintf('%.8f', final_archive_cost_ltc.to_f / HTTParty.get('http://pubapi.cryptsy.com/api.php?method=singlemarketdata&marketid=61')['return']['markets']['FLO']['lasttradeprice'].to_f)
+    puts "final_archive_cost_flo: #{final_archive_cost_flo}"
+
     # update model
-    archive[:florincoin_price] = (annual_archive_storage_cost + archive_make_cost) * archive.archive_time_length
+    archive[:florincoin_price] = final_archive_cost_flo
     archive[:florincoin_address] = accountaddress['accountaddress']
     archive.save
 
