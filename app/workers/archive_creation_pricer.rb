@@ -1,8 +1,13 @@
 class ArchiveCreationPricer
+
   @queue = :archive_creation_pricer
+
   def self.perform(archive_data)
+
     require 'chain_api'
+
     # create account and address
+
     accountaddress = Chain::ChainAPI.new({}).getaccountaddress
 
     archive = Archive.find archive_data['id']
@@ -95,6 +100,7 @@ class ArchiveCreationPricer
       last_id = tweets.last.id
 
     end
+
 
     volume = archive.volumes.create volume_title: "#{archive_data['archive_title']}_volume_1" 
 

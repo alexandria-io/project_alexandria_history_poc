@@ -21,6 +21,7 @@ class Librarian < ActiveRecord::Base
 
         unless archive.nil?
 
+          #TODO : confirm 16 transactions
           if transaction['confirmations'].to_i >= 1 && transaction_comment['app'] == 'Alexandria' && archive.creating_archive == false
 
             archive.creating_archive = true

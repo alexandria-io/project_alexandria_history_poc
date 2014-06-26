@@ -29,6 +29,7 @@ class Archive < ActiveRecord::Base
         end
       end
 
+      #TODO : Verify that the full price has been paid
       #if transactions_spent_total >= archive['florincoin_price'] 
       if transactions_spent_total >= 2 
 
