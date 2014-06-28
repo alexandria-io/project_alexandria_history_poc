@@ -1,20 +1,22 @@
 class Archive < ActiveRecord::Base
 
-  attr_accessible :archive_term, :archive_type, :archive_title, :archive_time_length, :florincoin_address, :florincoin_price, :creating_archive
+  attr_accessible :archive_term, :archive_type, :archive_title, :archive_time_length, :florincoin_address, :florincoin_price, :creating_archive, :archive_start_date, :archive_end_date, :archive_start_date_formatted
 
   has_many :torrents, dependent: :destroy
+
   has_many :volumes, dependent: :destroy
+
   has_many :records, dependent: :destroy
 
-  def self.confirm_transaction(request_options, archive)
+  def self.confirm_transaction(account_address, archive)
 
     require 'chain_api'
 
-    transactions = Chain::ChainAPI.new(request_options).listtransactions
+    transactions = Chain::ChainAPI.new(account_address).listtransactions
 
     if transactions['transactions'].empty?
 
-      Archive.delay({run_at: 60.seconds.from_now}).confirm_transaction(request_options, archive)
+      Archive.delay({run_at: 60.seconds.from_now}).confirm_transaction(account_address, archive)
 
     else 
 
@@ -46,7 +48,7 @@ class Archive < ActiveRecord::Base
 
       else
 
-        Archive.delay({run_at: 60.seconds.from_now}).confirm_transaction(request_options, archive)
+        Archive.delay({run_at: 60.seconds.from_now}).confirm_transaction(account_address, archive)
 
       end
     end

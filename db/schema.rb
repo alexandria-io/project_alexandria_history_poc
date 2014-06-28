@@ -20,9 +20,12 @@ ActiveRecord::Schema.define(:version => 20140612200102) do
     t.integer  "archive_time_length"
     t.string   "florincoin_address"
     t.decimal  "florincoin_price"
-    t.boolean  "creating_archive",    :default => false
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "archive_start_date"
+    t.datetime "archive_end_date"
+    t.string   "archive_start_date_formatted"
+    t.boolean  "creating_archive",             :default => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -82,8 +85,10 @@ ActiveRecord::Schema.define(:version => 20140612200102) do
   create_table "volumes", :force => true do |t|
     t.integer  "archive_id"
     t.string   "volume_title"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "volume_start_date"
+    t.datetime "volume_end_date"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
 end

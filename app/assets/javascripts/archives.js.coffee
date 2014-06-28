@@ -1,17 +1,37 @@
 $(document).ready ->
+
   if $('#price_data').length and $('#spinner').data('show-spinner') == true
+
     check_price = setInterval (->
+
       $.get "#{$('#spinner').data('archive-id')}.json", (data) ->
+
         unless data.florincoin_price == null && data.florincoin_address  == null
+
           $('#spinner').addClass 'dsp_none'
+
           $('#florincoin_price').text data.florincoin_price
+
           $('#florincoin_address').text data.florincoin_address
+
+          $('#archive_start_date').text data.archive_start_date_formatted
+
           clearInterval check_price
 
     ), 5000
+
+  $('#time_filter button').click (evt) ->
+
+    $.get "#{$('#spinner').data('archive-id')}/volumes.json", {start_date : $('#data_start_date').val(), end_date : $('#data_end_date').val()}, (data) ->
+
+      console.log data
+
   device_pixel_ratio = window.devicePixelRatio || (window.screen.availWidth / document.documentElement.clientWidth)
+
   canvas_element = $('#word_cloud')[0]
+
   $(canvas_element).attr 'width', canvas_element.offsetWidth * device_pixel_ratio
+
   $(canvas_element).attr 'height', canvas_element.offsetHeight * device_pixel_ratio
 
   WordCloud canvas_element,

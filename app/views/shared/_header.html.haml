@@ -1,32 +1,36 @@
-.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
+.navbar.navbar-inverse{role: 'navigation'}
   .container
     .navbar-header
       .row
         .col-md-6
-          - unless @archive.nil?
+          - if action_name == 'show' && controller_name == 'archives'
             %span.thin Search Archive:
             = @archive.archive_term
         .col-md-6
           Project Alexandria
       .row
         .col-md-6
-          - unless @archive.nil?
-            %span.thin Archive range: Apr 30 - May 13
+          - if action_name == 'show' && controller_name == 'archives'
+            %span.thin 
+              Archive range: 
+              %span#archive_start_date 
+                - unless @archive.archive_start_date_formatted.nil?
+                  = @archive.archive_start_date_formatted
+              = '-' 
+              %span#archive_start_date=  @archive_end_date
         .col-md-6
           %span.thin History, unedited
       .row
         .col-md-6
-          - unless @archive.nil?
+          - if action_name == 'show' && controller_name == 'archives'
             %span.thin Viewing range: Apr 30 - May 3
         .col-md-6
       .row
         .col-md-6
-          - unless @archive.nil?
+          - if action_name == 'show' && controller_name == 'archives'
             %span.thin Filters: none
         .col-md-6
           %span.thin 
             = link_to 'Home', root_url 
-            |
-            = link_to 'Search ', root_url 
             | 
-            = link_to 'About', root_url 
+            = link_to 'About', about_path

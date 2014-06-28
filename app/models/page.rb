@@ -61,11 +61,13 @@ class Page < ActiveRecord::Base
 
     pages = volume.pages
 
+    difference = []
+
+    complete_array = []
+
+    remapped_page_text_array = [] 
+
     unless pages.empty?
-
-      difference = []
-
-      complete_array = []
 
       pages.each do |page|
 
@@ -92,8 +94,6 @@ class Page < ActiveRecord::Base
 
     unless difference.nil?
 
-      remapped_page_text_array = [] 
-
       page_text_array.map do |x| 
 
         difference.each do |tweet_hash|
@@ -107,17 +107,43 @@ class Page < ActiveRecord::Base
       end
     end
 
-    page = volume.pages.create page_title: "#{volume['volume_title']}_page_#{pages.nil? ? '1' : (pages.count + 1)}", page_text: (pages.empty? ? page_text_array.to_json : (difference.empty? ?  difference.to_json : remapped_page_text_array.to_json))
+    page = volume.pages.create page_title: "#{volume['volume_title']}_page_#{pages.nil? ? '1' : (pages.count + 1)}_#{difference.empty? ? '0' : remapped_page_text_array.count}tweets", page_text: (pages.empty? ? page_text_array.to_json : (difference.empty? ?  difference.to_json : remapped_page_text_array.to_json))
 
     page.save
 
-    if pages.count < 5
+    if pages.count <= 4
 
       Page.delay({run_at: 10.seconds.from_now}).write_page(archive, volume)
 
     else
 
       Resque.enqueue(VolumeCreator, archive)
+
+      volume.volume_start_date = Time.at(JSON.parse(volume.pages.first.page_text).last['created_date'])
+
+      if volume.pages.last.page_text != '[]'
+
+        volume.volume_end_date = Time.at(JSON.parse(volume.pages.last.page_text).last['created_date'])
+
+      elsif volume.pages[3].page_text != '[]'
+
+        volume.volume_end_date = Time.at(JSON.parse(volume.pages[3].page_text).last['created_date'])
+
+      elsif volume.pages[2].page_text != '[]'
+
+        volume.volume_end_date = Time.at(JSON.parse(volume.pages[2].page_text).last['created_date'])
+
+      elsif volume.pages[1].page_text != '[]'
+
+        volume.volume_end_date = Time.at(JSON.parse(volume.pages[1].page_text).last['created_date'])
+
+      else
+
+        volume.volume_end_date = Time.at(JSON.parse(volume.pages.first.page_text).first['created_date'])
+
+      end
+
+      volume.save
 
       Resque.enqueue(TorrentCreator, archive, volume)
 

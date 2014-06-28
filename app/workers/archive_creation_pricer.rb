@@ -8,7 +8,7 @@ class ArchiveCreationPricer
 
     # create account and address
 
-    accountaddress = Chain::ChainAPI.new({}).getaccountaddress
+    account_address = Chain::ChainAPI.new({}).getaccountaddress
 
     archive = Archive.find archive_data['id']
 
@@ -45,7 +45,7 @@ class ArchiveCreationPricer
 
     elsif archive['archive_type'] == 'search'
 
-      tweets = client.user_timeline(archive['archive_term'], options = {count: 200, include_rts: 1})
+      tweets = client.search(archive['archive_term'], result_type: 'recent').take(200)
 
     end
 
@@ -74,7 +74,15 @@ class ArchiveCreationPricer
 
     5.times do |index| 
 
-      tweetz = client.user_timeline(archive['archive_term'], options = {count: 200, include_rts: 1, max_id: last_id})
+      if archive['archive_type'] == 'username'
+
+        tweetz = client.user_timeline(archive['archive_term'], options = {count: 200, include_rts: 1, max_id: last_id})
+
+      elsif archive['archive_type'] == 'search'
+
+        tweetz = client.search(archive['archive_term'], result_type: 'recent', max_id: last_id).take(200)
+
+      end
 
       tweetz.each do |tweet|
 
@@ -97,16 +105,23 @@ class ArchiveCreationPricer
         
       end
 
-      last_id = tweets.last.id
+      if index == 4
+
+        archive['archive_start_date'] = Time.at(tweetz.first['created_at'].to_i)
+
+        archive[:archive_start_date_formatted] = DateTime.strptime(archive[:archive_start_date].to_i.to_s,'%s').strftime '%b %d'
+
+      end
+
+      last_id = tweetz.last.id
 
     end
-
 
     volume = archive.volumes.create volume_title: "#{archive_data['archive_title']}_volume_1" 
 
     volume.save
 
-    page = volume.pages.create page_title: "#{volume['volume_title']}_page_1", page_text: page_text_array.to_json
+    page = volume.pages.create page_title: "#{volume['volume_title']}_page_1_#{page_text_array.count}tweets", page_text: page_text_array.to_json
 
     page.save
 
@@ -175,10 +190,12 @@ class ArchiveCreationPricer
 
     # update model
     archive[:florincoin_price] = final_archive_cost_flo
-    archive[:florincoin_address] = accountaddress['accountaddress']
+
+    archive[:florincoin_address] = account_address['accountaddress']
+
     archive.save
 
     # create delayed job to check for transaction confirmation
-    Archive.delay({run_at: 60.seconds.from_now}).confirm_transaction({account: accountaddress['account']}, archive)
+    Archive.delay({run_at: 60.seconds.from_now}).confirm_transaction({account: account_address['account']}, archive)
   end
 end

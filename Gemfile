@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
-
 gem 'rails', '~> 3.2.18'
 
 # Bundle edge Rails instead:
@@ -10,6 +8,9 @@ gem 'rails', '~> 3.2.18'
 group :development, :test do
   gem 'sqlite3'
   gem 'railroady'
+  gem 'better_errors'
+  gem 'rspec-rails' 
+  gem 'factory_girl_rails'
 end
 
 group :production do
@@ -47,11 +48,6 @@ gem 'unicorn'
 
 # To use debugger
 # gem 'debugger'
-
-group :development, :test do 
-  gem 'rspec-rails' 
-  gem 'factory_girl_rails'
-end
 
 group :test do 
   gem 'faker' 

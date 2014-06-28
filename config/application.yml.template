@@ -9,6 +9,9 @@ development:
   FLOCHAIN: ''
   FLOCHAIN_PORT: ''
   CHAIN_AUTH_TOKEN: ''
+  TORRENT_BOX: ''
+  TORRENT_AUTH_TOKEN: ''
+  REDISTOGO_URL: ''
 stage:
   RAILS_SECRET_TOKEN: ''
   NEW_RELIC_APP_NAME: ''
@@ -19,6 +22,9 @@ stage:
   FLOCHAIN: ''
   FLOCHAIN_PORT: ''
   CHAIN_AUTH_TOKEN: ''
+  TORRENT_BOX: ''
+  TORRENT_AUTH_TOKEN: ''
+  REDISTOGO_URL: ''
 production:
   RAILS_SECRET_TOKEN: ''
   NEW_RELIC_APP_NAME: ''

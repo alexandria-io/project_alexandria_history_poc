@@ -1,21 +1,37 @@
 .container
   .row
-    .col-lg-12#canvas_data{:'data-word-count' => @word_count_array}
-      #word_cloud
+    /.col-lg-12#canvas_data{:'data-word-count' => @word_count_array}
+    /  #word_cloud
     .col-lg-12#spinner{:'data-archive-id' => @archive.id, :'data-show-spinner' => @show_spinner}
       - unless @show_spinner == 'false'
         = image_tag 'spinner.gif'
-    .col-lg-12#price_data
-      %p
-        Price:
-        %span#florincoin_price
-          - unless @archive.florincoin_price.nil?
-            = @archive.florincoin_price
-      %p
-        Address:
-        %span#florincoin_address
-          - unless @archive.florincoin_address.nil?
-            = @archive.florincoin_address
+  %hr
+  .row#search_form
+    .col-lg-6
+      .row
+        .col-lg-12#price_data
+          %p
+            Price:
+            %span#florincoin_price
+              - unless @archive.florincoin_price.nil?
+                = @archive.florincoin_price
+          %p
+            Address:
+            %span#florincoin_address
+              - unless @archive.florincoin_address.nil?
+                = @archive.florincoin_address
+    .col-lg-6
+      .row
+        .col-md-12
+          %h4.thin Time Filter
+        .col-md-12#time_filter
+          .form-group
+            %label Start Date
+            %input#data_start_date{type: 'datetime-local', name: 'data_start_date'}
+          .form-group
+            %label End Date
+            %input#data_end_date{type: 'datetime-local', name: 'data_end_date'}
+          %button.btn.btn-sm.btn-success Filter
   .row#popular
     .col-md-6
       %h4.thin Most Popular Links
